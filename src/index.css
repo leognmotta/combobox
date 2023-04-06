@@ -1,0 +1,119 @@
+.App {
+  padding: 4rem 2rem;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.combobox-container {
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.list-container {
+  max-height: 20rem;
+  overflow-y: auto;
+  position: absolute;
+  margin-top: 10px;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  padding: .225rem 0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.list-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.list-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.list-container::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+.list-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eaeaea;
+  padding: 1rem;
+}
+
+.list-item[aria-selected="true"] {
+  border-color: #0077ff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.github-card-avatar {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.github-card-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.github-card-login {
+  font-weight: lighter;
+}
+
+.highlight {
+  font-weight: bold;
+}
+
+.search-container {
+  max-width: 20rem;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  color: #666;
+  z-index: 1;
+}
+
+.input-container input[type="text"] {
+  border: none;
+  border-bottom: 2px solid #ddd;
+  font-size: 1.1rem;
+  padding: 0.5rem 0;
+  width: 100%;
+}
+
+.input-container input[type="text"]:focus {
+  outline: none;
+  border-bottom-color: #0077ff;
+}
+
+.animate-label label {
+  top: -2rem;
+  font-size: 0.8rem;
+  color: #0077ff;
+}
+
