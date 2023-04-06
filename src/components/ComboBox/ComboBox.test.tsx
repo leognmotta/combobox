@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, fireEvent, act } from '@testing-library/react'
 import { ComboBox } from './ComboBox'
+import { ComboBoxItem } from './ComboBoxItem'
 
 const arrowDown = { key: 'ArrowDown', code: 'ArrowDown', charCode: 40 }
 const arrowUp = { key: 'ArrowUp', code: 'ArrowUp', charCode: 38 }
@@ -49,8 +50,12 @@ describe('ComboBox', () => {
     const mockOnSelect = vi.fn()
     const { getByTestId } = render(
       <ComboBox value="test" onSelect={mockOnSelect}>
-        <div key="item1">Item 1</div>
-        <div key="item2">Item 2</div>
+        <ComboBoxItem key="item1" value="item1">
+          Item 1
+        </ComboBoxItem>
+        <ComboBoxItem key="item2" value="item2">
+          Item 2
+        </ComboBoxItem>
       </ComboBox>,
     )
     const input = getByTestId('combobox-input')
@@ -87,8 +92,12 @@ describe('ComboBox', () => {
     const mockOnSelect = vi.fn()
     const { getByTestId } = render(
       <ComboBox value="test" onSelect={mockOnSelect}>
-        <div key="item1">Item 1</div>
-        <div key="item2">Item 2</div>
+        <ComboBoxItem key="item1" value="item1">
+          Item 1
+        </ComboBoxItem>
+        <ComboBoxItem key="item2" value="item2">
+          Item 2
+        </ComboBoxItem>
       </ComboBox>,
     )
     const domNode = getByTestId('combobox-container')
@@ -118,7 +127,9 @@ describe('ComboBox', () => {
     const { getByTestId, getByRole } = render(
       <ComboBox value="test" onSelect={mockOnSelect}>
         {items.map((item) => (
-          <div key={item}>{item}</div>
+          <ComboBoxItem key={item} value={item}>
+            {item}
+          </ComboBoxItem>
         ))}
       </ComboBox>,
     )

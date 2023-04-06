@@ -4,7 +4,9 @@ import { ComboBoxItem, COMPONENT_NAME } from './ComboBoxItem'
 
 describe('ComboBoxItem', () => {
   it('should render the children', () => {
-    const { getByText } = render(<ComboBoxItem>Test</ComboBoxItem>)
+    const { getByText } = render(
+      <ComboBoxItem value="item1">Test</ComboBoxItem>,
+    )
     expect(getByText('Test')).toBeInTheDocument()
   })
 
