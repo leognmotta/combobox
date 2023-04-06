@@ -1,3 +1,5 @@
+PS: Since, I was not sure if I could still make changes, created this PR https://github.com/leognmotta/combobox/pull/1
+
 # Setting up and running the ComboBox
 This is a guide to set up and run the project. The project is built with React and uses Vite and Vitest for development and testing. Follow the steps below to get started.
 
