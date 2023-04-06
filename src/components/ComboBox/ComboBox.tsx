@@ -4,6 +4,8 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useMemo,
+  useCallback,
 } from 'react'
 import { ComboBomContextProvider } from '../../context/ComboBoxContext'
 
@@ -25,27 +27,35 @@ export const ComboBox = forwardRef<
   const [isOpen, setIsOpen] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [activeItemIndex, setActiveItemIndex] = useState(-1)
+  const options = useMemo(() => {
+    return React.Children.map(
+      children,
+      (child) => (child as React.ReactElement).props.value as string,
+    )
+  }, [children])
+  const focusedOption = useMemo(
+    () => (options ? options[activeItemIndex] : null),
+    [activeItemIndex, options],
+  )
+  const childrenCount = options?.length || 0
+  const canIncreaseIndex = activeItemIndex + 1 < childrenCount
   const id = label?.split(' ').join('-').toLocaleLowerCase()
   const hasValue = Boolean(value?.trim())
-  const childrenCount = React.Children.count(children)
   const canDecreaseIndex = activeItemIndex > 0
-  const canIncreaseIndex = activeItemIndex + 1 < childrenCount
-  const options = React.Children.map(
-    children,
-    (child) => (child as React.ReactElement).key as string,
-  )
-  const keyboardSelectedKey = options ? options[activeItemIndex] : null
 
-  const handleSelected = (clickedSelectedKey?: string) => {
-    const value = clickedSelectedKey ?? keyboardSelectedKey
-    if (onChange && value) {
-      onChange(value)
-    }
-    if (onSelect && value) {
-      onSelect(value)
-    }
-    setIsOpen(false)
-  }
+  const handleSelected = useCallback(
+    (clickedSelectedKey?: string) => {
+      const value = clickedSelectedKey ?? focusedOption
+      if (onChange && value) {
+        onChange(value)
+      }
+      if (onSelect && value) {
+        onSelect(value)
+      }
+      setIsOpen(false)
+    },
+    [focusedOption, onChange, onSelect],
+  )
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value
@@ -130,7 +140,10 @@ export const ComboBox = forwardRef<
   }, [activeItemIndex])
 
   return (
-    <ComboBomContextProvider searchTerm={value}>
+    <ComboBomContextProvider
+      handleSelected={handleSelected}
+      selectedKey={focusedOption || ''}
+    >
       <div
         data-testid="combobox-container"
         className="combobox-container"
@@ -163,22 +176,10 @@ export const ComboBox = forwardRef<
             className="list-container"
             ref={listRef}
           >
-            {childrenCount === 0 && <div className="list-item">no data</div>}
-            {React.Children.map(children, (child, index) => {
-              const key = (child as React.ReactElement).key as string
-              return (
-                <div
-                  key={key}
-                  role="option"
-                  data-testid={`list-item-${key}`}
-                  className="list-item"
-                  onClick={() => handleSelected(key)}
-                  aria-selected={activeItemIndex === index}
-                >
-                  {child}
-                </div>
-              )
-            })}
+            {childrenCount === 0 && (
+              <div className="list-item">Ooops! there is no options</div>
+            )}
+            {children}
           </div>
         )}
       </div>

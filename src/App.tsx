@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { ComboBox, ComboBoxItem } from './components/ComboBox'
+import { TextHighlighter } from './components/TextHighlighter'
 import { useDebounce } from './hooks/useDebounce'
 import GitHubClient, { GithubUser } from './lib/GitHubClient'
-import { ComboBoxItemHighlight } from './components/ComboBox/ComboBoxItemHighlight'
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -44,13 +44,13 @@ function App() {
           onSelect={getUsersByLogin}
         >
           {users.map((user) => (
-            <ComboBoxItem key={user.login}>
+            <ComboBoxItem key={user.login} value={user.login}>
               <div className="github-card-avatar">
                 <img src={user.avatar_url} alt="Avatar" />
               </div>
 
               <div className="github-card-login">
-                @<ComboBoxItemHighlight text={user.login} />
+                @<TextHighlighter text={user.login} substring={value} />
               </div>
             </ComboBoxItem>
           ))}

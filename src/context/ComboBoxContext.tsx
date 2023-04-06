@@ -1,21 +1,23 @@
 import { createContext, PropsWithChildren } from 'react'
 
 interface ComboBomContextProps {
-  searchTerm?: string
+  selectedKey: string
+  handleSelected: (clickedSelectedKey?: string) => void
 }
 
 const initialSate = {
-  searchTerm: '',
+  selectedKey: '',
+  handleSelected: () => {},
 }
 
-export const ComboBomContext = createContext(initialSate)
+export const ComboBomContext = createContext<ComboBomContextProps>(initialSate)
 
 export const ComboBomContextProvider = ({
   children,
-  searchTerm = '',
+  ...value
 }: PropsWithChildren<ComboBomContextProps>) => {
   return (
-    <ComboBomContext.Provider value={{ searchTerm }}>
+    <ComboBomContext.Provider value={value}>
       {children}
     </ComboBomContext.Provider>
   )
