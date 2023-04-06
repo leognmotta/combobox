@@ -1,7 +1,4 @@
-import React, { useContext } from 'react'
-import { ComboBomContext } from '../../context/ComboBoxContext'
-
-export const COMPONENT_NAME = 'ComboBoxItemHighlight'
+export const COMPONENT_NAME = 'TextHighlighter'
 
 /**
  * Finds the start, match, and end of a substring in a string.
@@ -35,15 +32,15 @@ const getMatchedSubstring = (str: string, substr: string) => {
   }
 }
 
-interface ComboBoxItemHighlightProps {
+interface TextHighlighterProps {
   text: string
+  substring: string
 }
 
-export const ComboBoxItemHighlight = ({ text }: ComboBoxItemHighlightProps) => {
-  const { searchTerm } = useContext(ComboBomContext)
+export const TextHighlighter = ({ text, substring }: TextHighlighterProps) => {
   const [start, highlighted, end] = getMatchedSubstring(
     text.toLowerCase(),
-    searchTerm.toLowerCase(),
+    substring.toLowerCase(),
   )
 
   return (
@@ -55,4 +52,4 @@ export const ComboBoxItemHighlight = ({ text }: ComboBoxItemHighlightProps) => {
   )
 }
 
-ComboBoxItemHighlight.displayName = COMPONENT_NAME
+TextHighlighter.displayName = COMPONENT_NAME
