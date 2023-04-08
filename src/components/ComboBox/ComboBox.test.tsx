@@ -113,7 +113,6 @@ describe('ComboBox', () => {
 
   it('should navigate with arrows correctly', () => {
     const mockOnSelect = vi.fn()
-    const arr = [1, 2, 3]
     const items = [
       'item1',
       'item2',
@@ -125,7 +124,7 @@ describe('ComboBox', () => {
       'item8',
     ]
     const { getByTestId, getByRole } = render(
-      <ComboBox value="test" onSelect={mockOnSelect}>
+      <ComboBox value="" onSelect={mockOnSelect}>
         {items.map((item) => (
           <ComboBoxItem key={item} value={item}>
             {item}
@@ -136,20 +135,19 @@ describe('ComboBox', () => {
     const domNode = getByTestId('combobox-container')
     const input = getByTestId('combobox-input')
     fireEvent.focus(input)
+    fireEvent.change(input, { target: { value: 'i' } })
+    fireEvent.keyDown(domNode, arrowDown)
 
-    items.forEach(() => {
-      fireEvent.keyDown(domNode, arrowDown)
-    })
-    expect(getByRole('option', { selected: true })).toContainHTML('item8')
-
-    items.forEach(() => {
-      fireEvent.keyDown(domNode, arrowUp)
-    })
     expect(getByRole('option', { selected: true })).toContainHTML('item1')
 
-    arr.forEach(() => {
-      fireEvent.keyDown(domNode, arrowDown)
-    })
-    expect(getByRole('option', { selected: true })).toContainHTML('item4')
+    fireEvent.keyDown(domNode, arrowUp)
+    expect(getByRole('option', { selected: true })).toContainHTML('item8')
+
+    fireEvent.keyDown(domNode, arrowDown)
+    expect(getByRole('option', { selected: true })).toContainHTML('item1')
+
+    fireEvent.keyDown(domNode, arrowDown)
+    fireEvent.keyDown(domNode, arrowDown)
+    expect(getByRole('option', { selected: true })).toContainHTML('item3')
   })
 })
