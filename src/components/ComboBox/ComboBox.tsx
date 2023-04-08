@@ -23,6 +23,12 @@ export const ComboBox = forwardRef<
       (child) => (child as React.ReactElement).props.value as string,
     )
   }, [children])
+  const listItemRefs =
+    options?.reduce((acc, value) => {
+      acc[value] = React.createRef<HTMLDivElement>()
+      return acc
+    }, {} as { [key: string]: React.RefObject<HTMLDivElement> }) || {}
+
   const {
     id,
     isOpen,
@@ -35,12 +41,21 @@ export const ComboBox = forwardRef<
     handleInputChange,
     handleItemKeyDown,
     handleSelected,
-  } = useComboBox({ listRef, options, onChange, onSelect, value, label })
+  } = useComboBox({
+    listRef,
+    options,
+    onChange,
+    onSelect,
+    value,
+    label,
+    listItemRefs,
+  })
 
   return (
     <ComboBomContextProvider
       handleSelected={handleSelected}
       selectedKey={focusedOption || ''}
+      listItemRefs={listItemRefs}
     >
       <div
         data-testid="combobox-container"
