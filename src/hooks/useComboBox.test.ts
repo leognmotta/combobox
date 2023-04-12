@@ -36,7 +36,13 @@ describe('useComboBox', () => {
 
   it('should return the correct initial values', () => {
     const { result } = renderHook(() =>
-      useComboBox({ listRef, options, value: emptyValue, label }),
+      useComboBox({
+        listRef,
+        options,
+        value: emptyValue,
+        label,
+        listItemRefs: {},
+      }),
     )
     expect(result.current).toEqual({
       id: 'label-for-testing',
@@ -55,7 +61,13 @@ describe('useComboBox', () => {
 
   it('should update isFocused to true when handleFocus is called', () => {
     const { result } = renderHook(() =>
-      useComboBox({ listRef, options, value: emptyValue, label }),
+      useComboBox({
+        listRef,
+        options,
+        value: emptyValue,
+        label,
+        listItemRefs: {},
+      }),
     )
     act(() => {
       result.current.handleFocus()
@@ -65,7 +77,13 @@ describe('useComboBox', () => {
 
   it('should update isOpen to false when handleBlur is called', () => {
     const { result } = renderHook(() =>
-      useComboBox({ listRef, options, value: emptyValue, label }),
+      useComboBox({
+        listRef,
+        options,
+        value: emptyValue,
+        label,
+        listItemRefs: {},
+      }),
     )
     act(() => {
       result.current.handleBlur()
@@ -76,7 +94,13 @@ describe('useComboBox', () => {
   it('should update states using arrow keys navigation', () => {
     const preventDefault = vi.fn()
     const { result } = renderHook(() =>
-      useComboBox({ listRef, options, value: emptyValue, label }),
+      useComboBox({
+        listRef,
+        options,
+        value: emptyValue,
+        label,
+        listItemRefs: {},
+      }),
     )
 
     act(() => result.current.handleItemKeyDown(pressArrowDown(preventDefault)))
@@ -109,6 +133,7 @@ describe('useComboBox', () => {
         label,
         onChange,
         onSelect,
+        listItemRefs: {},
       }),
     )
 
@@ -130,7 +155,14 @@ describe('useComboBox', () => {
     const preventDefault = vi.fn()
     const onChange = vi.fn()
     const { result } = renderHook(() =>
-      useComboBox({ listRef, options, value: filledValue, label, onChange }),
+      useComboBox({
+        listRef,
+        options,
+        value: filledValue,
+        label,
+        onChange,
+        listItemRefs: {},
+      }),
     )
 
     act(() => {
