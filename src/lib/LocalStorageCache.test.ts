@@ -1,4 +1,4 @@
-import { expect, describe, it, vi } from 'vitest'
+import { expect, describe, it, vi, beforeEach } from 'vitest'
 import { LocalStorageCache } from './LocalStorageCache'
 
 describe('LocalStorageCache', () => {

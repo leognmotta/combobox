@@ -46,6 +46,7 @@
   align-items: center;
   border: 1px solid #eaeaea;
   padding: 1rem;
+  cursor: pointer;
 }
 
 .list-item[aria-selected="true"] {

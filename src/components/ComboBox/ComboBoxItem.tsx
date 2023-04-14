@@ -11,10 +11,13 @@ export const ComboBoxItem = ({
   children,
   value,
 }: PropsWithChildren<ComboBoxItemProps>) => {
-  const { handleSelected, selectedKey } = useContext(ComboBomContext)
+  const { handleSelected, selectedKey, listItemRefs } =
+    useContext(ComboBomContext)
+  const ref = listItemRefs[value]
 
   return (
     <div
+      ref={ref}
       key={value}
       role="option"
       data-testid={`list-item-${value}`}
